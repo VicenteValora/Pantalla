@@ -1,47 +1,43 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pantalla Corporativa</title>  <!-- Recarga automática cada 30 minutos -->  <meta http-equiv="refresh" content="1800">  <style>
-    * {
+  <title>Pantalla Corporativa</title>
+
+  <!-- Evitar caché -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <style>
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
       background: black;
-    }
-
-    body {
-      width: 100vw;
-      height: 100vh;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     video {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Cambia a cover si quieres llenar toda la pantalla */
+      object-fit: cover;
     }
-  </style></head>
-<body>  <video id="videoPlayer" autoplay muted loop playsinline>
+  </style>
+</head>
+<body>
+
+  <!-- Siempre usa el mismo nombre de vídeo -->
+  <video id="player" autoplay muted loop playsinline>
     <source src="video.mp4" type="video/mp4">
-    Tu navegador no soporta vídeo HTML5.
-  </video>  <script>
-    const video = document.getElementById("videoPlayer");
+    Tu navegador no soporta vídeo.
+  </video>
 
-    // Forzar reproducción si el navegador la bloquea
-    video.play().catch(() => {
-      console.log("Reproducción automática bloqueada");
-    });
+  <script>
+    const video = document.getElementById("player");
 
-    // Recargar vídeo cada hora (por si se actualiza en servidor)
+    // Recargar vídeo cada 10 minutos
     setInterval(() => {
-      const currentSrc = video.querySelector("source").src.split("?")[0];
-      video.querySelector("source").src = currentSrc + "?v=" + Date.now();
-      video.load();
-      video.play();
-    }, 60 * 60 * 1000);
-  </script></body>
-</html>
+      const src = "video
